@@ -1,0 +1,16 @@
+/***************************/
+/* Arlin Pedregon          */
+/* 1/18/2018               */
+/* CS-241 Lab 006          */
+/***************************/
+
+#include <stdio.h>
+int main(void)
+{
+  printf("aAAAa  ----   --     IIIIII   __    \n");
+  printf("a___|  |____| ||       ii    |  |  |\n");
+  printf("a   |  |  \\   ||___    ii    |  |  |\n");
+
+  printf("a   |  |   \\  |____| IIIIII  |  |__|\n");
+  return 0;
+}

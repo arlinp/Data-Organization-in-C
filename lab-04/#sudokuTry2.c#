@@ -1,0 +1,239 @@
+/*
+ *Let's solve sudoku problems!
+ *
+ * see http://norvig.com/sudoku.html
+ */
+#include <stdio.h>
+
+
+/* determines if c at index is valid, given the character array, grid 
+ *if it is already in the row, columns, or box, it returns 0*/
+int valid(int grid[9][9], int position, int c)
+{
+  int i, j;
+  int row = position / 9;
+  int col = position % 9;
+  int boxRowStart = row - (row % 3);
+  int boxColStart = col - (col % 3);
+  
+  /* check if number is okay to use in row */
+  for (i = 0; i < 9; i++)
+    {
+      if (grid[row][i] == c)
+	{
+	  return 0;
+	}
+    }
+  
+  /*check column for number*/
+  for (i = 0; i < 9; i++)
+    {
+      if (grid[i][col] == c)
+	{
+	  return 0;
+	}
+    }
+  
+  /*check box*/
+  for (i = 0; i < 3; i++)
+    {
+      for (j = 0; j < 3; j++)
+	{
+	  if (grid[boxRowStart + i][boxColStart + j] == c)
+	    {
+	      return 0;
+	    }
+	}
+    }
+  
+  /*else, the number is valid to use there*/
+  return 1;
+}
+
+/*check all boxes for duplicates*/
+int checkBoxes(int grid[9][9], int c)
+{
+  int i, j;
+  int row = c / 9;
+  int col = c % 9;
+  int boxStartRow = row - (row % 3);
+  int boxStartCol = col - (col % 3);
+  
+  for (i = 0; i < 3; i++)
+    {
+      for (j = 0; j < 3; j++)
+	{
+	  if(c != '0'){
+	    if (grid[boxStartRow + i][boxStartCol + j] == c)
+	      {
+		return 0;                     /* num already used in box */
+	      }
+	  }
+	}
+    }
+  if(c == 81) return 1;
+  c++;
+  return checkBoxes(grid, c);
+  
+}
+
+/* determines if the given grid is valid*/
+int validate(int grid[9][9])
+{
+  /*check all columns for duplicates*/
+  int row, col, i;
+  int a = grid[0][0];
+  
+  for (col = 0; col < 9; col++)
+    {
+      for (row = 0; row < 9; row++)
+	{
+	  for (i = 1; i < 9; i++)
+	    {
+	      if ((grid[row][col] != '0') && (grid[row][col] == grid[i][col]))
+		{
+		  return 1;                      /* column error found in puzzle */
+		}
+	    }
+	}
+    }
+  
+  /*check rows or duplicates*/
+  for (row = 0; row < 9; row++)
+    {
+      for (col = 0; col < 9; col++)
+	{
+	  for (i = col + 1; i < 9; i++)
+	    {
+	      if ( (grid[row][col] != '0') && (grid[row][col] == grid[row][i]) )
+		{
+		  return 0;                      /* row error found in puzzle */
+		}
+	    }
+	}
+    }
+  
+  if(checkBoxes(grid, a)){
+    return 1;}
+  return 0;
+}
+  
+
+
+/*
+  int i, j;
+  if(boxRowStart == 9) return 1;
+    for (i = 0; i < 3; i++)
+    {
+      for (j = 0; j < 3; j++)
+      {
+        if (grid[boxRowStart + i][boxColStart + j] == c)
+        {
+          return 0;
+        }
+        c = grid[boxRowStart + i][boxColStart + j];
+      }
+    }
+    boxRowStart += 3;
+    boxColStart += 3;
+    return validate(grid, boxRowStart, boxColStart, c);*/
+
+
+/*Solves the sudoku puzzle*/
+int findSolution(int grid[9][9], int position)
+{
+  int num;
+  int row = position / 9;
+  int col = position % 9;
+
+  /*if we finished all positions*/
+  if (position == 81) return 1;
+  
+  /*skips to next position if there's a number at position*/
+  if (grid[row][col] != 0)
+    {
+      return findSolution(grid, ++position);
+    }
+
+  else
+    {
+      for (num = 1; num <= 9; num++)
+	{
+	  if (valid(grid, position, num)) 
+	    {
+	      grid[row][col] = num;
+	      /*feed it back into the recursive algorithm with the
+	       *updated number. This is where the frames of possibilities
+	       *are created*/
+	      if (findSolution(grid, position)) return 1;
+        
+	      /*set back to 0 if it causes error (one of the frames didn't work)*/
+	      grid[row][col] = 0;
+	    }
+	}
+      return 0;
+    }
+}
+
+/*Prints out the grid array to screen in a 9x9 square*/
+void prettyPrint(int grid[9][9])
+{
+  
+  int i, j;
+  for(i=0; i <9; i++)
+    {
+      for(j=0; j<9; j++)
+	{
+	  printf("%d ", grid[i][j]);
+	  if(j==2 || j==5){ printf("| ");}
+	  if(j==8){ printf("\n");}
+	}
+      if(i==2 || i==5){ printf("------+-------+------\n");}
+    }
+}
+  
+  
+ 
+/*Reads in one puzzle*/
+void readLine(int grid[9][9])
+{
+  int c, i, j;
+  j = 0;
+  i = 0;
+  while ((i < 9) && (j < 9) && ((c = getchar()) != EOF))
+    {
+      if(c == '.') c = '0'; /*turns blanks to 0's*/
+    
+      /* this checks if it's a digit
+       * but starting at 0 for bookkeeping unknowns*/
+
+      if((c >= '0') && (c <= '9')) 
+	{
+	  grid[i][j++] = c - '0';
+	  if (j == 9)
+	    {
+	      ++i;
+	      j = 0;
+	    }
+	}
+    }
+}
+
+
+int main(void)
+{
+  int grid[9][9];
+  int position = 0;
+  if(validate(grid))
+    {
+      readLine(grid);
+      findSolution(grid, position);
+      prettyPrint(grid);
+    }
+  printf("error\n");
+  /* Do something*/
+  
+  return 0;
+}
+
+

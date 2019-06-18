@@ -1,0 +1,10 @@
+total 36
+drwx------ 2 arlin ugrad 4096 Jan 26 13:33 .
+drwxr-xr-x 3 arlin ugrad 4096 Jan 26 13:28 ..
+-rwxr--r-- 1 arlin ugrad 8608 Jan 18 10:36 a.out
+-rw------- 1 arlin ugrad  148 Jan 23 20:43 arlin-pedregon.txt
+-rw------- 1 arlin ugrad  412 Jan 23 20:55 #asciiArt.c#
+-rwx---r-- 1 arlin ugrad  411 Jan 23 20:46 asciiArt.c
+-rw------- 1 arlin ugrad  407 Jan 18 10:36 asciiArt.c~
+-rwx------ 1 arlin ugrad   34 Jan 26 13:28 out1.txt
+-rw-r--r-- 1 arlin ugrad    0 Jan 26 13:36 out2.txt
