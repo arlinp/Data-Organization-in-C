@@ -2,7 +2,18 @@
 
 # Lab 2: Counting Characters, Words, and Lines
 
-January 22, 2018
+## TO RUN:
+Run the following commands on a Linux machine
+
+```
+gcc -Wall -ansi -pedantic wordCount.c
+./a.out < testWords.in > myOut.txt
+```
+
+To show that there is no difference between my output and the expected output (testWords.out), run
+```
+diff myOut.txt testWords.out
+```
 
 ## 1 Requirements
 
