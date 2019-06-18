@@ -47,7 +47,7 @@ A valid record does not have the same
 number appear twice in the same row,
 column, or box.
 
-###2.2 Output Format
+### 2.2 Output Format
 
 Your program is expected to be able to print out any sudoku puzzle
 in the grid format. For example:
