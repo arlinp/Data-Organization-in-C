@@ -2,7 +2,19 @@
 
 # Lab 3: getBits
 
-January 29, 2018
+## TO RUN:
+Run the following commands on a Linux machine
+
+```
+gcc -Wall -ansi -pedantic getBits.c
+./a.out < testgetbits.in > myOut.txt
+```
+
+To show that there is no difference between my output and the expected output (testgetbits.out), run
+```
+diff myOut.txt testgetbits.out
+```
+
 
 ## 1 Description
 
