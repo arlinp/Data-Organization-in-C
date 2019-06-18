@@ -15,7 +15,6 @@ To show that there is no difference between my output and the expected output (t
 diff myOut.txt testgetbits.out
 ```
 
-
 ## 1 Description
 
 Section 2.9 of Kernighan and Ritchie provides the getbits function. Write a C program that reads records from the

@@ -2,7 +2,18 @@
 
 # Lab 4: Sudoku Solver
 
-February 5, 2018
+## TO RUN:
+Run the following commands on a Linux machine
+
+```
+gcc -Wall -ansi -pedantic sudoku.c
+./a.out < testSudoku.in > myOut.txt
+```
+
+To show that there is no difference between my output and the expected output (testSudoku.out), run
+```
+diff myOut.txt testSudoku.out
+```
 
 ## 1. Sudoku
 
